@@ -1,8 +1,0 @@
-Arrays are sequential lists of data; they're fast
-
-Pointer structures are lists of items that may be spread across memory
-	Linked list, trees
-	beneficial: sequential storage space not requires, canbegin quite small and arbitrarily grow as more nodes are added
-	cost: e.g. integer list, each node will take space of integer plus an extra integer to store pointer
-	endpoint: instead of Null, in Py None.
-	Keep the distinction between data and node in mind: if node has customer data in it, need a Customer class to store data
