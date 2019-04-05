@@ -1,0 +1,16 @@
+Paradigms of alg design: Divide and Conquer; Greedy; Dynamic Programming
+	Divide and conquer: problem is broken down into small subproblems and the results combined into overall solution
+	Greedy: optimizing and combining. Take shortest path to most useful solution for local problems, hoping somewhere will lead to global solution
+	Dynamic programming: intermediate solutions get cached then used in later operation.	
+		compare results at different times
+	Recursion	
+		Backtracking: type of recursion used for problems like traversal of tree structures
+			if dead-end reached, backtrack to earlier node and go down different route
+	
+Big O
+	"O" stands for order, denotes that growth rates are defined as orders of functions.
+	Amortized analysis
+		Average running time of a sequence of operations.
+			doesn't assume anything about the data distribution of any input value
+			takes change of state of data into account
+		Average case analysis and benchmarking consider domain of data; how to structure application best for data
