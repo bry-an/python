@@ -1,4 +1,5 @@
 from math import ceil
+from random import randint
 
 
 class monster():
@@ -13,9 +14,8 @@ class monster():
 
         # We will compute the following attributes
         # Hit Points
-        # Random-ish formula.  Can tune this later as necessary.
         self.hit_points = int((1.5 * self.height) *
-                              (.75 * self.weight) * (1.2 * self.defense) * 100)
+                              (.75 * self.weight) * (1.2 * self.defense))
         # Initiative
         # This should be an integer in the 1-100 range, given our desired input ranges
         self.initiative = ceil((self.height * self.weight) / 15)
@@ -39,7 +39,17 @@ class monster():
       Current Hit Points: {self.hit_points}"""
 
     def attack(self):
-        pass
+        if self.stunned:
+            self.stunned = False
+            return {'dmg': 0, 'stun': False}
+        else:
+            stun = randint(0, 999)/1000 <= self.stun_chance
+            return {'dmg': self.damage, 'stun': stun}
 
-    def defend(self, atk):
-        pass
+    def defend(self, dmg, stun):
+        if stun:
+            self.stunned = True
+        self.hit_points -= ceil(10 * dmg / self.defense)
+
+    def alive(self):
+        return self.hit_points > 0

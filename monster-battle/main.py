@@ -1,5 +1,6 @@
-from monster import monster
+from time import sleep
 from num2words import num2words
+from monster import monster
 
 
 def create_monster(pos):
@@ -48,18 +49,24 @@ def battle(*monst):
 
     turn = turn_tracker(monst[0].initiative, monst[1].initiative)
 
-    # Get the width we need to display hit point updates
-    w = sum(len(str(m.hit_points)) for m in monst) + 4
+    lw = sum(len(str(m.hit_points)) for m in monst) + 4
+    rw = max(len(str(m.name)) for m in monst) + 12
 
     while monst[0].alive() and monst[1].alive():
         attacker = next(turn)
         defender = not attacker
-        # Print the hit points update
-        print(f"{monst[0].hit_points} <> {monst[1].hit_points}".ljust(
-            w), end='\r', flush=True)
-        monst[defender].defend(monst[attacker].damage)
+        attack_data = monst[attacker].attack()
+        status = f"{monst[0].hit_points} <> {monst[1].hit_points}".ljust(lw)
+        if attack_data['stun']:
+            status += f" : {monst[defender].name} stunned!".rjust(rw)
+        else:
+            status += "".rjust(rw)
+        print(status, end='\r', flush=True)
+        monst[defender].defend(**attack_data)
+        sleep(.2)
 
     print('')
+
     print(f"{monst[0].name if monst[0].alive() else monst[1].name} wins!")
 
 
@@ -68,7 +75,7 @@ if __name__ == "__main__":
     # monster_one = create_monster(1)
     # monster_two = create_monster(2)
     monster_one = monster('a', 3, 50, 3, 3)
-    monster_two = monster('b', 10, 150, 10, 10)
+    monster_two = monster('b', 3, 50, 3, 3)
     print(monster_one)
     print(monster_two)
     battle(monster_one, monster_two)
