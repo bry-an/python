@@ -1,11 +1,11 @@
 class monster():
-    def __init__(self, name, height, weight, attack, defense):
+    def __init__(self, name, height, weight, damage, defense):
         # Feed its own instance into itSELF
         # These are the user-selectable attributes
         self.name = name
         self.height = height
         self.weight = weight
-        self.attack = attack
+        self.damage = damage
         self.defense = defense
 
         # We will compute the following attributes
